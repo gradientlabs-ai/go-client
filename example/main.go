@@ -25,7 +25,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	http.ListenAndServe(":4321", webhookHandler(client))
+	if err := http.ListenAndServe(":4321", webhookHandler(client)); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func run(client *glabs.Client) error {
