@@ -119,5 +119,9 @@ func (c *Client) makeRequest(ctx context.Context, method string, path string, bo
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("User-Agent", userAgent)
 
+	if body != nil {
+		req.Header.Add("Content-Type", "application/json")
+	}
+
 	return c.httpClient.Do(req)
 }
