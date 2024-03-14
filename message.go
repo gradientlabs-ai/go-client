@@ -25,6 +25,22 @@ const (
 	ParticipantTypeBot ParticipantType = "Bot"
 )
 
+// AttachmentType identifies the type of file that has been attached to a message.
+// It is used to render a generic message (e.g. "[Image uploaded]", or "File uploaded: document.pdf")
+// in the Glabs web app, so that reviewers can see what has happened.
+// Note: the actual attachment itself cannot currently be uploaded.
+type AttachmentType string
+
+const (
+	AttachmentTypeImage AttachmentType = "image"
+	AttachmentTypeFile  AttachmentType = "file"
+)
+
+type Attachment struct {
+	Type     AttachmentType `json:"type"`
+	FileName string         `json:"file_name"`
+}
+
 // AddMessageParams are the parameters to Client.AddMessage.
 type AddMessageParams struct {
 	// ID uniquely identifies this message within the conversation.
@@ -49,6 +65,9 @@ type AddMessageParams struct {
 
 	// Metadata is arbitrary metadata that will be attached to the message.
 	Metadata any `json:"metadata"`
+
+	// Attachments contains any files that were uploaded with this message.
+	Attachment []*Attachment `json:"attachments,omitempty"`
 }
 
 // Message represents a message sent by a customer, human support agent, or the
@@ -76,6 +95,9 @@ type Message struct {
 
 	// Metadata is arbitrary metadata attached to the message.
 	Metadata any `json:"metadata"`
+
+	// Attachments contains any files that were uploaded with this message.
+	Attachment []*Attachment `json:"attachments,omitempty"`
 }
 
 // AddMessage records a message sent by the customer or a human agent.
