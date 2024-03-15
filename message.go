@@ -36,7 +36,7 @@ const (
 
 	// AttachmentTypeFile indicates that the attachment is a generic file such as
 	// a document.
-	AttachmentTypeFile  AttachmentType = "file"
+	AttachmentTypeFile AttachmentType = "file"
 )
 
 // Attachment represents a file that was uploaded with a message.
