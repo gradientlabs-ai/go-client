@@ -25,6 +25,29 @@ const (
 	ParticipantTypeBot ParticipantType = "Bot"
 )
 
+// AttachmentType identifies the type of file that has been attached to a
+// message. Currently, our AI agent does not support processing attachments,
+// and will hand the conversation off to a human agent if it encounters one.
+type AttachmentType string
+
+const (
+	// AttachmentTypeImage indicates that the attachment is an image.
+	AttachmentTypeImage AttachmentType = "image"
+
+	// AttachmentTypeFile indicates that the attachment is a generic file such as
+	// a document.
+	AttachmentTypeFile AttachmentType = "file"
+)
+
+// Attachment represents a file that was uploaded with a message.
+type Attachment struct {
+	// Type of file that was uploaded.
+	Type AttachmentType `json:"type"`
+
+	// FileName is the name of the file that was uploaded.
+	FileName string `json:"file_name"`
+}
+
 // AddMessageParams are the parameters to Client.AddMessage.
 type AddMessageParams struct {
 	// ID uniquely identifies this message within the conversation.
@@ -49,6 +72,9 @@ type AddMessageParams struct {
 
 	// Metadata is arbitrary metadata that will be attached to the message.
 	Metadata any `json:"metadata"`
+
+	// Attachments contains any files that were uploaded with this message.
+	Attachment []*Attachment `json:"attachments,omitempty"`
 }
 
 // Message represents a message sent by a customer, human support agent, or the
@@ -76,6 +102,9 @@ type Message struct {
 
 	// Metadata is arbitrary metadata attached to the message.
 	Metadata any `json:"metadata"`
+
+	// Attachments contains any files that were uploaded with this message.
+	Attachment []*Attachment `json:"attachments,omitempty"`
 }
 
 // AddMessage records a message sent by the customer or a human agent.
