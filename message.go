@@ -25,20 +25,27 @@ const (
 	ParticipantTypeBot ParticipantType = "Bot"
 )
 
-// AttachmentType identifies the type of file that has been attached to a message.
-// It is used to render a generic message (e.g. "[Image uploaded]", or "File uploaded: document.pdf")
-// in the Glabs web app, so that reviewers can see what has happened.
-// Note: the actual attachment itself cannot currently be uploaded.
+// AttachmentType identifies the type of file that has been attached to a
+// message. Currently, our AI agent does not support processing attachments,
+// and will hand the conversation off to a human agent if it encounters one.
 type AttachmentType string
 
 const (
+	// AttachmentTypeImage indicates that the attachment is an image.
 	AttachmentTypeImage AttachmentType = "image"
+
+	// AttachmentTypeFile indicates that the attachment is a generic file such as
+	// a document.
 	AttachmentTypeFile  AttachmentType = "file"
 )
 
+// Attachment represents a file that was uploaded with a message.
 type Attachment struct {
-	Type     AttachmentType `json:"type"`
-	FileName string         `json:"file_name"`
+	// Type of file that was uploaded.
+	Type AttachmentType `json:"type"`
+
+	// FileName is the name of the file that was uploaded.
+	FileName string `json:"file_name"`
 }
 
 // AddMessageParams are the parameters to Client.AddMessage.
