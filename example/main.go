@@ -51,12 +51,17 @@ func run(client *glabs.Client) error {
 		ParticipantType: glabs.ParticipantTypeCustomer,
 		Created:         time.Now(),
 		Metadata:        map[string]string{"device_os": "iOS 17"},
+		Attachments: []*glabs.Attachment{
+			{
+				Type:     glabs.AttachmentTypeImage,
+				FileName: "toaster.jpg",
+			},
+		},
 	})
 	if err != nil {
 		return err
 	}
 	fmt.Printf("Message: %#v\n", msg)
-
 	if err := client.CancelConversation(ctx, conv.ID); err != nil {
 		return err
 	}

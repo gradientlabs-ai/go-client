@@ -74,7 +74,7 @@ type AddMessageParams struct {
 	Metadata any `json:"metadata"`
 
 	// Attachments contains any files that were uploaded with this message.
-	Attachment []*Attachment `json:"attachments,omitempty"`
+	Attachments []*Attachment `json:"attachments,omitempty"`
 }
 
 // Message represents a message sent by a customer, human support agent, or the
