@@ -16,9 +16,9 @@ const (
 	// customer/end-user.
 	ParticipantTypeCustomer ParticipantType = "Customer"
 
-	// ParticipantTypeAgent indicates that the message was sent by a human support
+	// ParticipantTypeHumanAgent indicates that the message was sent by a human support
 	// agent.
-	ParticipantTypeAgent ParticipantType = "Agent"
+	ParticipantTypeHumanAgent ParticipantType = "Agent"
 
 	// ParticipantTypeBot indicates that the message was sent by an automation/bot
 	// other than the Gradient Labs AI agent.
