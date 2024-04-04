@@ -8,24 +8,6 @@ import (
 	"time"
 )
 
-// ParticipantType identifies the type of participant who sent a message or
-// is assigned to a conversation.
-type ParticipantType string
-
-const (
-	// ParticipantTypeCustomer is a  customer/end-user.
-	ParticipantTypeCustomer ParticipantType = "Customer"
-
-	// ParticipantTypeHumanAgent is a human support agent.
-	ParticipantTypeHumanAgent ParticipantType = "Agent"
-
-	// ParticipantTypeBot is an automation/bot other than the Gradient Labs AI agent.
-	ParticipantTypeBot ParticipantType = "Bot"
-
-	// ParticipantTypeAIAgent is the Gradient Labs AI agent.
-	ParticipantTypeAIAgent ParticipantType = "AI Agent"
-)
-
 // AttachmentType identifies the type of file that has been attached to a
 // message. Currently, our AI agent does not support processing attachments,
 // and will hand the conversation off to a human agent if it encounters one.
@@ -66,6 +48,7 @@ type AddMessageParams struct {
 	ParticipantID string `json:"participant_id"`
 
 	// ParticipantType identifies the type of participant who sent this message.
+	// This cannot be set to ParticipantTypeAI.
 	ParticipantType ParticipantType `json:"participant_type"`
 
 	// Created is the time at which the message was sent.

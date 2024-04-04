@@ -62,7 +62,15 @@ func run(client *glabs.Client) error {
 		return err
 	}
 	fmt.Printf("Message: %#v\n", msg)
-	if err := client.CancelConversation(ctx, conv.ID); err != nil {
+
+	err = client.AssignConversation(ctx, conv.ID, &glabs.AssignmentParams{
+		AssigneeType: glabs.ParticipantTypeAIAgent,
+	})
+	if err != nil {
+		return err
+	}
+
+	if err := client.EndConversation(ctx, conv.ID); err != nil {
 		return err
 	}
 
