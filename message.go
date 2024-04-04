@@ -8,21 +8,22 @@ import (
 	"time"
 )
 
-// ParticipantType identifies the type of participant who sent a message.
+// ParticipantType identifies the type of participant who sent a message or
+// is assigned to a conversation.
 type ParticipantType string
 
 const (
-	// ParticipantTypeCustomer indicates that the message was sent by a
-	// customer/end-user.
+	// ParticipantTypeCustomer is a  customer/end-user.
 	ParticipantTypeCustomer ParticipantType = "Customer"
 
-	// ParticipantTypeHumanAgent indicates that the message was sent by a human support
-	// agent.
+	// ParticipantTypeHumanAgent is a human support agent.
 	ParticipantTypeHumanAgent ParticipantType = "Agent"
 
-	// ParticipantTypeBot indicates that the message was sent by an automation/bot
-	// other than the Gradient Labs AI agent.
+	// ParticipantTypeBot is an automation/bot other than the Gradient Labs AI agent.
 	ParticipantTypeBot ParticipantType = "Bot"
+
+	// ParticipantTypeAIAgent is the Gradient Labs AI agent.
+	ParticipantTypeAIAgent ParticipantType = "AI Agent"
 )
 
 // AttachmentType identifies the type of file that has been attached to a
