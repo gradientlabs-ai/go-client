@@ -45,17 +45,19 @@ func (re *ResponseError) TraceID() string {
 	return traceID
 }
 
-func newResponseError(rsp *http.Response) *ResponseError {
-	re := &ResponseError{StatusCode: rsp.StatusCode}
+func responseError(rsp *http.Response) *ResponseError {
+	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
+		re := &ResponseError{StatusCode: rsp.StatusCode}
 
-	var payload struct {
-		Message string         `json:"message"`
-		Details map[string]any `json:"details"`
+		var payload struct {
+			Message string         `json:"message"`
+			Details map[string]any `json:"details"`
+		}
+		if err := json.NewDecoder(rsp.Body).Decode(&payload); err == nil {
+			re.Message = payload.Message
+			re.Details = payload.Details
+		}
+		return re
 	}
-	if err := json.NewDecoder(rsp.Body).Decode(&payload); err == nil {
-		re.Message = payload.Message
-		re.Details = payload.Details
-	}
-
-	return re
+	return nil
 }

@@ -8,23 +8,6 @@ import (
 	"time"
 )
 
-// ParticipantType identifies the type of participant who sent a message.
-type ParticipantType string
-
-const (
-	// ParticipantTypeCustomer indicates that the message was sent by a
-	// customer/end-user.
-	ParticipantTypeCustomer ParticipantType = "Customer"
-
-	// ParticipantTypeHumanAgent indicates that the message was sent by a human support
-	// agent.
-	ParticipantTypeHumanAgent ParticipantType = "Agent"
-
-	// ParticipantTypeBot indicates that the message was sent by an automation/bot
-	// other than the Gradient Labs AI agent.
-	ParticipantTypeBot ParticipantType = "Bot"
-)
-
 // AttachmentType identifies the type of file that has been attached to a
 // message. Currently, our AI agent does not support processing attachments,
 // and will hand the conversation off to a human agent if it encounters one.
@@ -65,6 +48,7 @@ type AddMessageParams struct {
 	ParticipantID string `json:"participant_id"`
 
 	// ParticipantType identifies the type of participant who sent this message.
+	// This cannot be set to ParticipantTypeAI.
 	ParticipantType ParticipantType `json:"participant_type"`
 
 	// Created is the time at which the message was sent.
@@ -115,8 +99,8 @@ func (c *Client) AddMessage(ctx context.Context, conversationID string, p AddMes
 	}
 	defer rsp.Body.Close()
 
-	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
-		return nil, newResponseError(rsp)
+	if err := responseError(rsp); err != nil {
+		return nil, err
 	}
 
 	var msg Message
