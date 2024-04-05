@@ -25,8 +25,8 @@ func (c *Client) AssignConversation(ctx context.Context, conversationID string, 
 	}
 	defer rsp.Body.Close()
 
-	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
-		return newResponseError(rsp)
+	if err := responseError(rsp); err != nil {
+		return err
 	}
 	return nil
 }

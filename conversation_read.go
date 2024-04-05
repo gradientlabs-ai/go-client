@@ -15,8 +15,8 @@ func (c *Client) ReadConversation(ctx context.Context, conversationID string) (*
 	}
 	defer rsp.Body.Close()
 
-	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
-		return nil, newResponseError(rsp)
+	if err := responseError(rsp); err != nil {
+		return nil, err
 	}
 
 	var conv Conversation

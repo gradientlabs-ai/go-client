@@ -99,8 +99,8 @@ func (c *Client) AddMessage(ctx context.Context, conversationID string, p AddMes
 	}
 	defer rsp.Body.Close()
 
-	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
-		return nil, newResponseError(rsp)
+	if err := responseError(rsp); err != nil {
+		return nil, err
 	}
 
 	var msg Message
