@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type AssignmentParams struct {
@@ -15,6 +16,10 @@ type AssignmentParams struct {
 	// being assigned to. Set this to ParticipantTypeAIAgent to assign the conversation
 	// to the Gradient Labs AI agent.
 	AssigneeType ParticipantType `json:"assignee_type"`
+
+	// Assigned optionally defines the time when the conversation was assigned.
+	// If not given, this will default to the current time.
+	Assigned *time.Time `json:"assigned"`
 }
 
 // AssignConversation assigns a conversation to a participant.
