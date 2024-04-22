@@ -39,7 +39,7 @@ type StartConversationParams struct {
 
 	// Created optionally defines the time when the conversation started.
 	// If not given, this will default to the current time.
-	Created *time.Time `json:"created"`
+	Created *time.Time `json:"created,omitempty"`
 }
 
 // StartConversation begins a conversation.
