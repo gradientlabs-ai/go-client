@@ -17,9 +17,9 @@ type AssignmentParams struct {
 	// to the Gradient Labs AI agent.
 	AssigneeType ParticipantType `json:"assignee_type"`
 
-	// Assigned optionally defines the time when the conversation was assigned.
+	// Timestamp optionally defines the time when the conversation was assigned.
 	// If not given, this will default to the current time.
-	Assigned *time.Time `json:"assigned,omitempty"`
+	Timestamp *time.Time `json:"timestamp,omitempty"`
 }
 
 // AssignConversation assigns a conversation to a participant.
