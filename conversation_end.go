@@ -10,7 +10,7 @@ import (
 type EndParams struct {
 	// Finished optionally defines the time when the conversation ended.
 	// If not given, this will default to the current time.
-	Finished *time.Time `json:"finished"`
+	Finished *time.Time `json:"finished,omitempty"`
 }
 
 // EndConversation ends a conversation.

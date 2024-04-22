@@ -19,7 +19,7 @@ type AssignmentParams struct {
 
 	// Assigned optionally defines the time when the conversation was assigned.
 	// If not given, this will default to the current time.
-	Assigned *time.Time `json:"assigned"`
+	Assigned *time.Time `json:"assigned,omitempty"`
 }
 
 // AssignConversation assigns a conversation to a participant.
