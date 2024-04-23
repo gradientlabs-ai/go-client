@@ -82,7 +82,7 @@ type Message struct {
 	ParticipantType ParticipantType `json:"participant_type"`
 
 	// Created is the time at which the message was sent.
-	Created time.Time `json:"created"`
+	Created *time.Time `json:"created"`
 
 	// Metadata is arbitrary metadata attached to the message.
 	Metadata any `json:"metadata"`

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
 // StartConversationParams are the parameters to Client.StartConversation.
@@ -35,6 +36,10 @@ type StartConversationParams struct {
 	// Metadata is arbitrary metadata that will be attached to the conversation.
 	// It will be passed along with webhooks so can be used as action parameters.
 	Metadata any `json:"metadata"`
+
+	// Created optionally defines the time when the conversation started.
+	// If not given, this will default to the current time.
+	Created *time.Time `json:"created,omitempty"`
 }
 
 // StartConversation begins a conversation.
