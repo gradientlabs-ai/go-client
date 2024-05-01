@@ -28,10 +28,5 @@ func (c *Client) AssignConversation(ctx context.Context, conversationID string, 
 	if err != nil {
 		return err
 	}
-	defer rsp.Body.Close()
-
-	if err := responseError(rsp); err != nil {
-		return err
-	}
-	return nil
+	return c.handleResponse(rsp, nil)
 }

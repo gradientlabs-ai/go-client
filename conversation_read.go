@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -13,14 +12,9 @@ func (c *Client) ReadConversation(ctx context.Context, conversationID string) (*
 	if err != nil {
 		return nil, err
 	}
-	defer rsp.Body.Close()
-
-	if err := responseError(rsp); err != nil {
-		return nil, err
-	}
 
 	var conv Conversation
-	if err := json.NewDecoder(rsp.Body).Decode(&conv); err != nil {
+	if err := c.handleResponse(rsp, conv); err != nil {
 		return nil, err
 	}
 	return &conv, nil

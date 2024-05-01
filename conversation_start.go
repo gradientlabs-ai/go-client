@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 	"time"
 )
@@ -48,14 +47,8 @@ func (c *Client) StartConversation(ctx context.Context, p StartConversationParam
 	if err != nil {
 		return nil, err
 	}
-	defer rsp.Body.Close()
-
-	if err := responseError(rsp); err != nil {
-		return nil, err
-	}
-
 	var conv Conversation
-	if err := json.NewDecoder(rsp.Body).Decode(&conv); err != nil {
+	if err := c.handleResponse(rsp, conv); err != nil {
 		return nil, err
 	}
 	return &conv, nil

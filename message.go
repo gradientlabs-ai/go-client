@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -97,14 +96,9 @@ func (c *Client) AddMessage(ctx context.Context, conversationID string, p AddMes
 	if err != nil {
 		return nil, err
 	}
-	defer rsp.Body.Close()
-
-	if err := responseError(rsp); err != nil {
-		return nil, err
-	}
 
 	var msg Message
-	if err := json.NewDecoder(rsp.Body).Decode(&msg); err != nil {
+	if err := c.handleResponse(rsp, msg); err != nil {
 		return nil, err
 	}
 	return &msg, nil
