@@ -98,7 +98,7 @@ func (c *Client) AddMessage(ctx context.Context, conversationID string, p AddMes
 	}
 
 	var msg Message
-	if err := c.handleResponse(rsp, msg); err != nil {
+	if err := c.handleResponse(rsp, &msg); err != nil {
 		return nil, err
 	}
 	return &msg, nil

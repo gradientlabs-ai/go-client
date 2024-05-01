@@ -14,7 +14,7 @@ func (c *Client) ReadConversation(ctx context.Context, conversationID string) (*
 	}
 
 	var conv Conversation
-	if err := c.handleResponse(rsp, conv); err != nil {
+	if err := c.handleResponse(rsp, &conv); err != nil {
 		return nil, err
 	}
 	return &conv, nil

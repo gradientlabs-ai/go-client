@@ -48,7 +48,7 @@ func (c *Client) StartConversation(ctx context.Context, p StartConversationParam
 		return nil, err
 	}
 	var conv Conversation
-	if err := c.handleResponse(rsp, conv); err != nil {
+	if err := c.handleResponse(rsp, &conv); err != nil {
 		return nil, err
 	}
 	return &conv, nil
