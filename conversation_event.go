@@ -32,7 +32,7 @@ const (
 )
 
 type EventParams struct {
-	// Type identifies the type of event (start-typing, stop-typing, join, leave).
+	// Type identifies the type of event (see: ConversationEventType).
 	Type ConversationEventType `json:"type"`
 
 	// ParticipantID identifies the message sender.
