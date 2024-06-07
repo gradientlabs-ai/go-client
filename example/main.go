@@ -70,6 +70,15 @@ func run(client *glabs.Client) error {
 		return err
 	}
 
+	err = client.AddConversationEvent(ctx, conv.ID, &glabs.EventParams{
+		Type:            glabs.ConversationEventTypeLeave,
+		ParticipantID:   "user-1234",
+		ParticipantType: glabs.ParticipantTypeCustomer,
+	})
+	if err != nil {
+		return err
+	}
+
 	if err := client.EndConversation(ctx, conv.ID, glabs.EndParams{}); err != nil {
 		return err
 	}
