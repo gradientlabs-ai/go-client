@@ -24,7 +24,7 @@ type AssignmentParams struct {
 
 // AssignConversation assigns a conversation to a participant.
 func (c *Client) AssignConversation(ctx context.Context, conversationID string, p *AssignmentParams) error {
-	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("/conversations/%s/assignee", conversationID), p)
+	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/assignee", conversationID), p)
 	if err != nil {
 		return err
 	}

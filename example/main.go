@@ -63,6 +63,17 @@ func run(client *glabs.Client) error {
 	}
 	fmt.Printf("Message: %#v\n", msg)
 
+	err = client.AddResource(ctx, conv.ID, "order-details", struct {
+		ID     string `json:"id"`
+		Status string `json:"status"`
+	}{
+		ID:     "1234",
+		Status: "shipped",
+	})
+	if err != nil {
+		return err
+	}
+
 	err = client.AssignConversation(ctx, conv.ID, &glabs.AssignmentParams{
 		AssigneeType: glabs.ParticipantTypeAIAgent,
 	})
@@ -82,6 +93,12 @@ func run(client *glabs.Client) error {
 	if err := client.EndConversation(ctx, conv.ID, glabs.EndParams{}); err != nil {
 		return err
 	}
+
+	readRsp, err := client.ReadConversation(ctx, conv.ID)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%#v\n", readRsp)
 
 	return nil
 }
