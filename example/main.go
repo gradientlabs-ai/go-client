@@ -63,6 +63,17 @@ func run(client *glabs.Client) error {
 	}
 	fmt.Printf("Message: %#v\n", msg)
 
+	err = client.AddResource(ctx, conv.ID, "order-details", struct {
+		ID     string `json:"id"`
+		Status string `json:"status"`
+	}{
+		ID:     "1234",
+		Status: "shipped",
+	})
+	if err != nil {
+		return err
+	}
+
 	err = client.AssignConversation(ctx, conv.ID, &glabs.AssignmentParams{
 		AssigneeType: glabs.ParticipantTypeAIAgent,
 	})
