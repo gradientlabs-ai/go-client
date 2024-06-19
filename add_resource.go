@@ -15,7 +15,7 @@ import (
 // recommend making attribute names as descriptive as possible.
 //
 // Over time, the AI agent will learn the structure of your resources - so while
-// its fine to add new attributes, you may want to consider using new resource
+// it's fine to add new attributes, you may want to consider using new resource
 // names when removing attributes or changing the structure of your resources
 // significantly.
 //
