@@ -54,7 +54,7 @@ type EventParams struct {
 
 // AddConversationEvent records an event such as the customer started typing.
 func (c *Client) AddConversationEvent(ctx context.Context, conversationID string, p *EventParams) error {
-	rsp, err := c.makeRequest(ctx, http.MethodPost, fmt.Sprintf("/conversations/%s/events", conversationID), p)
+	rsp, err := c.makeRequest(ctx, http.MethodPost, fmt.Sprintf("conversations/%s/events", conversationID), p)
 	if err != nil {
 		return err
 	}

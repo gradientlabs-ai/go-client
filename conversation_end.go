@@ -15,7 +15,7 @@ type EndParams struct {
 
 // EndConversation ends a conversation.
 func (c *Client) EndConversation(ctx context.Context, conversationID string, p EndParams) error {
-	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("/conversations/%s/end", conversationID), p)
+	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/end", conversationID), p)
 	if err != nil {
 		return err
 	}

@@ -24,7 +24,7 @@ import (
 // the same for all conversations (e.g. "order-details" and "user-profile") not
 // unique identifiers.
 func (c *Client) AddResource(ctx context.Context, conversationID string, name string, resource any) error {
-	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("/conversations/%s/resources/%s", conversationID, name), resource)
+	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/resources/%s", conversationID, name), resource)
 	if err != nil {
 		return err
 	}
