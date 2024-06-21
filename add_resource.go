@@ -19,10 +19,11 @@ import (
 // names when removing attributes or changing the structure of your resources
 // significantly.
 //
-// Resource names can be anything consisting of letters, numbers, or any of the
-// following characters: _ - + =. Names should be descriptive handles that are
-// the same for all conversations (e.g. "order-details" and "user-profile") not
-// unique identifiers.
+// Resource names are case-insensitive and can be anything consisting of letters,
+// numbers, or any of the following characters: _ - + =.
+//
+// Names should be descriptive handles that are the same for all conversations
+// (e.g. "order-details" and "user-profile") not unique identifiers.
 func (c *Client) AddResource(ctx context.Context, conversationID string, name string, resource any) error {
 	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/resources/%s", conversationID, name), resource)
 	if err != nil {
