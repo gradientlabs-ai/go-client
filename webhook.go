@@ -102,7 +102,7 @@ type ConversationHandOffEvent struct {
 	// Conversation contains the details of the conversation the event relates to.
 	Conversation WebhookConversation `json:"conversation"`
 
-	// Target defines where the agent is wants to hand this conversation to.
+	// Target defines where the agent wants to hand this conversation to.
 	Target string `json:"target,omitempty"`
 
 	// Reason is the code that describes why the agent wants to hand off this
