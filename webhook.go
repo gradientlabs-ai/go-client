@@ -101,6 +101,16 @@ type AgentMessageEvent struct {
 type ConversationHandOffEvent struct {
 	// Conversation contains the details of the conversation the event relates to.
 	Conversation WebhookConversation `json:"conversation"`
+
+	// Target defines where the agent is wants to hand this conversation to.
+	Target string `json:"target,omitempty"`
+
+	// Reason is the code that describes why the agent wants to hand off this
+	// conversation.
+	Reason string `json:"reason_code"`
+
+	// Description is a human-legible description of the Reason code.
+	Description string `json:"reason"`
 }
 
 // ConversationFinishedEvent contains the data for a `conversation.finished` event.
