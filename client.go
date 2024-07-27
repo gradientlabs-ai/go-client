@@ -125,3 +125,18 @@ func (c *Client) makeRequest(ctx context.Context, method string, path string, bo
 
 	return c.httpClient.Do(req)
 }
+
+func (c *Client) handleResponse(response *http.Response, value interface{}) error {
+	defer response.Body.Close()
+
+	if err := responseError(response); err != nil {
+		return err
+	}
+
+	// If result is nil, we don't need to decode the response body.
+	if value == nil {
+		return nil
+	}
+
+	return json.NewDecoder(response.Body).Decode(value)
+}
