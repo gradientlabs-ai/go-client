@@ -23,10 +23,10 @@ const (
 type PublicationStatus string
 
 const (
-	// StatusDraft means that the article is being written or
+	// PublicationStatusDraft means that the article is being written or
 	// edited and is not published.
-	StatusDraft PublicationStatus = "draft"
+	PublicationStatusDraft PublicationStatus = "draft"
 
-	// StatusPublished means that the article is published.
-	StatusPublished PublicationStatus = "published"
+	// PublicationStatusPublished means that the article is published.
+	PublicationStatusPublished PublicationStatus = "published"
 )
