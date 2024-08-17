@@ -8,13 +8,13 @@ import (
 )
 
 type UpsertArticleTopicParams struct {
-	// ID is the identifier that the company uses for this topic
+	// ID is your identifier for this topic
 	ID string `json:"id"`
 
 	// ParentID is the identifier for this topic's parent topic (if any).
 	ParentID string `json:"parent_id"`
 
-	// Name is the topic's name.
+	// Name is the topic's name. This cannot be nil.
 	Name string `json:"title"`
 
 	// Description is an topic's tagline. It may be empty.
@@ -24,8 +24,8 @@ type UpsertArticleTopicParams struct {
 	// whole world (public) through to employees only (internal).
 	Visibility Visibility `json:"visibility"`
 
-	// Status describes whether this article is published or not.
-	Status PublicationStatus `json:"status"`
+	// PublicationStatus describes whether this topic is published or not.
+	PublicationStatus PublicationStatus `json:"status"`
 
 	// Data optionally gives additional meta-data about the topic.
 	Data json.RawMessage `json:"data"`
@@ -33,8 +33,8 @@ type UpsertArticleTopicParams struct {
 	// Created is when the topic was first created.
 	Created time.Time `json:"created"`
 
-	// Updated is when the topic was last changed.
-	Updated time.Time `json:"updated"`
+	// LastEdited is when the topic was last changed.
+	LastEdited time.Time `json:"updated"`
 }
 
 func (c *Client) UpsertArticleTopic(ctx context.Context, p *UpsertArticleTopicParams) error {
