@@ -15,7 +15,7 @@ type UpsertArticleTopicParams struct {
 	ParentID string `json:"parent_id"`
 
 	// Name is the topic's name. This cannot be nil.
-	Name string `json:"title"`
+	Name string `json:"name"`
 
 	// Description is an topic's tagline. It may be empty.
 	Description string `json:"description"`
@@ -34,7 +34,7 @@ type UpsertArticleTopicParams struct {
 	Created time.Time `json:"created"`
 
 	// LastEdited is when the topic was last changed.
-	LastEdited time.Time `json:"updated"`
+	LastEdited time.Time `json:"last_edited"`
 }
 
 func (c *Client) UpsertArticleTopic(ctx context.Context, p *UpsertArticleTopicParams) error {
