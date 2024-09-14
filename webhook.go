@@ -48,6 +48,10 @@ const (
 	// conversation with the customer and you should close any corresponding
 	// ticket, etc.
 	WebhookTypeConversationFinished WebhookType = "conversation.finished"
+
+	// WebhookTypeAction indicates that the agent needs an action to
+	// be executed (e.g., while following a procedure)
+	WebhookTypeActionExecute WebhookType = "action.execute"
 )
 
 // Webhook is an event delivered to your webhook endpoint.
@@ -88,6 +92,11 @@ func (w Webhook) ConversationFinished() (*ConversationFinishedEvent, bool) {
 	return e, ok
 }
 
+func (w Webhook) ActionExecute() (*ActionExecuteEvent, bool) {
+	e, ok := w.Data.(*ActionExecuteEvent)
+	return e, ok
+}
+
 // AgentMessageEvent contains the data for an `agent.message` webhook event.
 type AgentMessageEvent struct {
 	// Conversation contains the details of the conversation the event relates to.
@@ -115,6 +124,18 @@ type ConversationHandOffEvent struct {
 
 // ConversationFinishedEvent contains the data for a `conversation.finished` event.
 type ConversationFinishedEvent struct {
+	// Conversation contains the details of the conversation the event relates to.
+	Conversation WebhookConversation `json:"conversation"`
+}
+
+// ActionExecuteEvent contains the data for a `action.execute` event.
+type ActionExecuteEvent struct {
+	// Action is the name of the action to execute
+	Action string `json:"action"`
+
+	// Params are the arguments to execute the action with.
+	Params json.RawMessage `json:"params"`
+
 	// Conversation contains the details of the conversation the event relates to.
 	Conversation WebhookConversation `json:"conversation"`
 }
@@ -167,6 +188,11 @@ func (c *Client) ParseWebhook(req *http.Request) (*Webhook, error) {
 			return nil, err
 		}
 		payload.Webhook.Data = &fin
+	case WebhookTypeActionExecute:
+		var act ActionExecuteEvent
+		if err := json.Unmarshal(payload.Data, &act); err != nil {
+			return nil, err
+		}
 	default:
 		return nil, fmt.Errorf("unknown webhook event type received: %q", payload.Type)
 	}
