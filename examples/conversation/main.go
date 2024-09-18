@@ -90,7 +90,7 @@ func run(client *glabs.Client) error {
 		return err
 	}
 
-	if err := client.EndConversation(ctx, conv.ID, glabs.EndParams{}); err != nil {
+	if err := client.FinishConversation(ctx, conv.ID, glabs.FinishParams{}); err != nil {
 		return err
 	}
 
