@@ -14,13 +14,13 @@ type UpsertArticleParams struct {
 	// ID is your identifier of choice for this article.
 	ID string `json:"id"`
 
-	// Title is the article's title. It may be empty.
+	// Title is the article's title. It may be empty if the article is a draft.
 	Title string `json:"title"`
 
 	// Description is an article's tagline. It may be empty.
 	Description string `json:"description"`
 
-	// Body is the main contents of an article. It may be empty.
+	// Body is the main contents of an article. It may be empty if the article is a draft.
 	Body string `json:"body"`
 
 	// Visibility describes who can access this article, ranging from the
