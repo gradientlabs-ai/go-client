@@ -120,12 +120,24 @@ type ConversationHandOffEvent struct {
 
 	// Description is a human-legible description of the Reason code.
 	Description string `json:"reason"`
+
+	// Intent is the most recent intent that was classified from the customer's
+	// conversation, if any.
+	Intent string `json:"intent,omitempty"`
 }
 
 // ConversationFinishedEvent contains the data for a `conversation.finished` event.
 type ConversationFinishedEvent struct {
 	// Conversation contains the details of the conversation the event relates to.
 	Conversation WebhookConversation `json:"conversation"`
+
+	// Reason is the code that describes why the agent wants to finish this
+	// conversation.
+	Reason string `json:"reason_code,omitempty"`
+
+	// Intent is the most recent intent that was classified from the customer's
+	// conversation, if any.
+	Intent string `json:"intent,omitempty"`
 }
 
 // ActionExecuteEvent contains the data for a `action.execute` event.
