@@ -205,6 +205,7 @@ func (c *Client) ParseWebhook(req *http.Request) (*Webhook, error) {
 		if err := json.Unmarshal(payload.Data, &act); err != nil {
 			return nil, err
 		}
+		payload.Webhook.Data = &act
 	default:
 		return nil, fmt.Errorf("unknown webhook event type received: %q", payload.Type)
 	}
