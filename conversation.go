@@ -75,4 +75,13 @@ type Conversation struct {
 
 	// Status describes the current state of the conversation.
 	Status Status `json:"status"`
+
+	// IsActive is true if the AI agent is currently assigned to response
+	// in this conversation.
+	IsActive bool `json:"agent_is_active"`
+
+	// LatestIntent is the name of the latest intent that has been classified
+	// in this conversation. It will be empty if there has been no attempt at
+	// classifying the customer's intent.
+	LatestIntent string `json:"latest_intent,omitempty"`
 }
