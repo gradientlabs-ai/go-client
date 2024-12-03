@@ -52,6 +52,9 @@ const (
 	// WebhookTypeAction indicates that the agent needs an action to
 	// be executed (e.g., while following a procedure)
 	WebhookTypeActionExecute WebhookType = "action.execute"
+
+	// WebhookTypeResourcePull indicates that the agent wants to pull a resource.
+	WebhookTypeResourcePull WebhookType = "resource.pull"
 )
 
 // Webhook is an event delivered to your webhook endpoint.
@@ -92,8 +95,15 @@ func (w Webhook) ConversationFinished() (*ConversationFinishedEvent, bool) {
 	return e, ok
 }
 
+// ActionExecute returns the data for an `action.execute` event.
 func (w Webhook) ActionExecute() (*ActionExecuteEvent, bool) {
 	e, ok := w.Data.(*ActionExecuteEvent)
+	return e, ok
+}
+
+// ResourcePull returns the data for an `resource.pull` event.
+func (w Webhook) ResourcePull() (*ResourcePullEvent, bool) {
+	e, ok := w.Data.(*ResourcePullEvent)
 	return e, ok
 }
 
@@ -147,6 +157,15 @@ type ActionExecuteEvent struct {
 
 	// Params are the arguments to execute the action with.
 	Params json.RawMessage `json:"params"`
+
+	// Conversation contains the details of the conversation the event relates to.
+	Conversation WebhookConversation `json:"conversation"`
+}
+
+// ResourcePullEvent contains the data for a `resource.pull` event.
+type ResourcePullEvent struct {
+	// ResourceType is the name of the resource type the agent wants to pull.
+	ResourceType string `json:"resource_type"`
 
 	// Conversation contains the details of the conversation the event relates to.
 	Conversation WebhookConversation `json:"conversation"`
@@ -206,6 +225,12 @@ func (c *Client) ParseWebhook(req *http.Request) (*Webhook, error) {
 			return nil, err
 		}
 		payload.Webhook.Data = &act
+	case WebhookTypeResourcePull:
+		var pull ResourcePullEvent
+		if err := json.Unmarshal(payload.Data, &pull); err != nil {
+			return nil, err
+		}
+		payload.Webhook.Data = &pull
 	default:
 		return nil, fmt.Errorf("unknown webhook event type received: %q", payload.Type)
 	}
