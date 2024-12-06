@@ -11,6 +11,9 @@ type CancelParams struct {
 	// Timestamp optionally defines the time when the conversation was cancelled.
 	// If not given, this will default to the current time.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
+
+	// Reason optionally allows you to describe why this cancellation is happening.
+	Reason string `json:"reason,omitempty"`
 }
 
 // CancelConversation cancels the conversation.
