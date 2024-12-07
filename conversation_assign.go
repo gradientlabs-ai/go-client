@@ -20,6 +20,9 @@ type AssignmentParams struct {
 	// Timestamp optionally defines the time when the conversation was assigned.
 	// If not given, this will default to the current time.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
+
+	// Reason optionally allows you to describe why this assignment is happening.
+	Reason string `json:"reason,omitempty"`
 }
 
 // AssignConversation assigns a conversation to a participant.
