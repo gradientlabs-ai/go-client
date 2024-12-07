@@ -12,7 +12,7 @@ type FinishParams struct {
 	// If not given, this will default to the current time.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
 
-	// Reason optionally allows you to describe why this conversation is being finished.
+	// Reason optionally allows you to describe why this conversation is finishing.
 	Reason string `json:"reason,omitempty"`
 }
 
