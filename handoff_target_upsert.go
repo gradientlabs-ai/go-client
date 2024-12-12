@@ -14,7 +14,9 @@ type UpsertHandOffTargetParams struct {
 	Name string `json:"name"`
 }
 
-// UpsertHandOffTarget inserts or updates a hand-off target
+// UpsertHandOffTarget inserts or updates a hand-off target.
+//
+// Note: requires a `Management` API key.
 func (c *Client) UpsertHandOffTarget(ctx context.Context, p *UpsertHandOffTargetParams) error {
 	rsp, err := c.makeRequest(ctx, http.MethodPost, "hand-off-targets", p)
 	if err != nil {
