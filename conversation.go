@@ -84,4 +84,8 @@ type Conversation struct {
 	// in this conversation. It will be empty if there has been no attempt at
 	// classifying the customer's intent.
 	LatestIntent string `json:"latest_intent,omitempty"`
+
+	// LatestHandOffTarget is the ID of the hand off target that is currently
+	// mapped to the latest intent.
+	LatestHandOffTargetID string `json:"latest_handoff_target,omitempty"`
 }
