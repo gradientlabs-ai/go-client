@@ -30,11 +30,16 @@ type Tool struct {
 }
 
 type ToolParameter struct {
-	Name        string        `json:"name"`
-	Description string        `json:"description"`
-	Type        ParameterType `json:"type"`
-	Required    *bool         `json:"required,omitempty"`
-	Options     []string      `json:"options,omitempty"`
+	Name        string            `json:"name"`
+	Description string            `json:"description"`
+	Type        ParameterType     `json:"type"`
+	Required    *bool             `json:"required,omitempty"`
+	Options     []ParameterOption `json:"options,omitempty"`
+}
+
+type ParameterOption struct {
+	Value string `json:"value"`
+	Text  string `json:"text"`
 }
 
 type ToolWebhookConfiguration struct {
