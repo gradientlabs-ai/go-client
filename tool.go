@@ -19,6 +19,10 @@ const (
 	BodyEncodingJSON BodyEncoding = "application/json"
 )
 
+type ToolList struct {
+	Tools []*Tool `json:"tools"`
+}
+
 type Tool struct {
 	ID          string                    `json:"id"`
 	Name        string                    `json:"name"`
