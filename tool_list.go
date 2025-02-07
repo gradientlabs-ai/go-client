@@ -3,7 +3,6 @@ package client
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -11,7 +10,7 @@ import (
 //
 // Note: requires a `Management` API key.
 func (c *Client) ListTools(ctx context.Context) ([]*Tool, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("tools"), nil)
+	rsp, err := c.makeRequest(ctx, http.MethodGet, "tools", nil)
 	if err != nil {
 		return nil, err
 	}
