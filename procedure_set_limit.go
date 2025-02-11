@@ -20,7 +20,7 @@ type ProcedureLimitParams struct {
 //
 // Note: requires a `Management` API key.
 func (c *Client) SetProcedureLimit(ctx context.Context, procedureID string, p *ProcedureLimitParams) (*Procedure, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodPost, fmt.Sprintf("procedures/%s/limit", procedureID), p)
+	rsp, err := c.makeRequest(ctx, http.MethodPost, fmt.Sprintf("procedure/%s/limit", procedureID), p)
 	if err != nil {
 		return nil, err
 	}

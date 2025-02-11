@@ -26,6 +26,9 @@ type Procedure struct {
 	// Name is the user-given name of the procedure.
 	Name string `json:"name"`
 
+	// Description is the user-given description for the procedure
+	Description string `json:"description"`
+
 	// Status is the overall status of the procedure.
 	Status ProcedureStatus `json:"status"`
 
