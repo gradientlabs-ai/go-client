@@ -114,6 +114,13 @@ type AgentMessageEvent struct {
 
 	// Body contains the text of the message the agent wants to send.
 	Body string `json:"body"`
+
+	// Total identifies the number of agent messages that have been
+	// produced in the current turn.
+	Total int `json:"total,omitempty"`
+
+	// Sequence identifies which agent message this is in the current turn.
+	Sequence int `json:"sequence,omitempty"`
 }
 
 // ConversationHandOffEvent contains the data for a `conversation.hand_off` event.
