@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -26,7 +27,15 @@ type ProcedureListResponse struct {
 //
 // Note: requires a `Management` API key.
 func (c *Client) ListProcedures(ctx context.Context, p *ProcedureListParams) (*ProcedureListResponse, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, "procedures", p)
+	path := "procedures"
+	if p.Cursor != "" {
+		path = fmt.Sprintf("%v?cursor=%v", path, p.Cursor)
+	}
+	if p.Status != "" {
+		path = fmt.Sprintf("%v?status=%v", path, p.Status)
+	}
+
+	rsp, err := c.makeRequest(ctx, http.MethodGet, path, nil)
 	if err != nil {
 		return nil, err
 	}

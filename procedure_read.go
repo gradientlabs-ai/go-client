@@ -11,7 +11,7 @@ import (
 //
 // Note: requires a `Management` API key.
 func (c *Client) ReadProcedure(ctx context.Context, procedureID string) (*Procedure, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("procedures/%s", procedureID), nil)
+	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("procedure/%s", procedureID), nil)
 	if err != nil {
 		return nil, err
 	}
