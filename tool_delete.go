@@ -6,8 +6,7 @@ import (
 	"net/http"
 )
 
-// UninstallTool deletes a tool by uninstalling it. Note: this does not
-// (yet) check whether those tools are used in procedures. Use with caution!
+// DeleteTool deletes a tool. Note: You can't delete a tool that is eing used in a live procedure.
 //
 // Note: requires a `Management` API key.
 func (c *Client) UninstallTool(ctx context.Context, toolID string) error {

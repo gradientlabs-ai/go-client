@@ -29,7 +29,7 @@ type Tool struct {
 	Description string                    `json:"description"`
 	Parameters  []ToolParameter           `json:"parameters"`
 	Webhook     *ToolWebhookConfiguration `json:"webhook,omitempty"`
-	HTTP        *ActionHTTPDefinition     `json:"http,omitempty"`
+	HTTP        *HTTPDefinition           `json:"http,omitempty"`
 	Mock        bool                      `json:"mock,omitempty"`
 }
 
@@ -50,14 +50,14 @@ type ToolWebhookConfiguration struct {
 	Name string `json:"name"`
 }
 
-type ActionHTTPDefinition struct {
-	Method          string                    `json:"method"`
-	URLTemplate     string                    `json:"url_template"`
-	HeaderTemplates map[string]string         `json:"header_templates,omitempty"`
-	Body            *ActionHTTPBodyDefinition `json:"body,omitempty"`
+type HTTPDefinition struct {
+	Method          string              `json:"method"`
+	URLTemplate     string              `json:"url_template"`
+	HeaderTemplates map[string]string   `json:"header_templates,omitempty"`
+	Body            *HTTPBodyDefinition `json:"body,omitempty"`
 }
 
-type ActionHTTPBodyDefinition struct {
+type HTTPBodyDefinition struct {
 	Encoding           BodyEncoding      `json:"encoding"`
 	JSONTemplate       string            `json:"json_template,omitempty"`
 	FormFieldTemplates map[string]string `json:"form_field_templates,omitempty"`
