@@ -6,10 +6,18 @@ import (
 	"net/http"
 )
 
-// DeleteTool deletes a tool. Note: You can't delete a tool that is currently in use in a live procedure.
+// UninstallTool deletes a tool. Note: You can't delete a tool that is currently in use in a live procedure.
+//
+// Deprecated: use DeleteTool instead.
+func (c *Client) UninstallTool(ctx context.Context, toolID string) error {
+	return c.DeleteTool(ctx, toolID)
+}
+
+// DeleteTool deletes a tool.
+// Note: You can't delete a tool that is currently in use in a live procedure.
 //
 // Note: requires a `Management` API key.
-func (c *Client) UninstallTool(ctx context.Context, toolID string) error {
+func (c *Client) DeleteTool(ctx context.Context, toolID string) error {
 	rsp, err := c.makeRequest(ctx, http.MethodDelete, fmt.Sprintf("tools/%s", toolID), nil)
 	if err != nil {
 		return err
