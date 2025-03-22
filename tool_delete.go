@@ -6,13 +6,6 @@ import (
 	"net/http"
 )
 
-// UninstallTool deletes a tool. Note: You can't delete a tool that is currently in use in a live procedure.
-//
-// Deprecated: use DeleteTool instead.
-func (c *Client) UninstallTool(ctx context.Context, toolID string) error {
-	return c.DeleteTool(ctx, toolID)
-}
-
 // DeleteTool deletes a tool.
 // Note: You can't delete a tool that is currently in use in a live procedure.
 //
