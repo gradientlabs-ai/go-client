@@ -7,9 +7,17 @@ import (
 	"net/http"
 )
 
-// ReadConversation returns a conversation.
-func (c *Client) ReadConversation(ctx context.Context, conversationID string) (*Conversation, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("conversations/%s", conversationID), nil)
+type ReadParams struct {
+	// SupportPlatform is the name of the support platform where the
+	// conversation was started (e.g. Intercom).
+	//
+	// Leave empty if the conversation was started via the Gradient
+	// Labs API.
+	SupportPlatform string `json:"support_platform,omitempty"`
+}
+
+func (c *Client) ReadConversation(ctx context.Context, conversationID string, p *ReadParams) (*Conversation, error) {
+	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("/conversations/%s/read", conversationID), p)
 	if err != nil {
 		return nil, err
 	}
