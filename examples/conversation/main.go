@@ -94,7 +94,7 @@ func run(client *glabs.Client) error {
 		return err
 	}
 
-	readRsp, err := client.ReadConversation(ctx, conv.ID)
+	readRsp, err := client.ReadConversation(ctx, conv.ID, &glabs.ReadParams{})
 	if err != nil {
 		return err
 	}
