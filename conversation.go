@@ -80,12 +80,25 @@ type Conversation struct {
 	// in this conversation.
 	IsActive bool `json:"agent_is_active"`
 
-	// LatestIntent is the name of the latest intent that has been classified
-	// in this conversation. It will be empty if there has been no attempt at
-	// classifying the customer's intent.
-	LatestIntent string `json:"latest_intent,omitempty"`
+	// AgentMetadata contains several fields that come from the agent.
+	AgentMetadata *AgentMetadata `json:"latest_agent_metadata,omitempty"`
+}
 
-	// LatestHandOffTarget is the ID of the hand off target that is currently
-	// mapped to the latest intent.
-	LatestHandOffTargetID string `json:"latest_handoff_target,omitempty"`
+type AgentMetadata struct {
+	// Intent is the name of the *latest* intent that the agent has
+	// classified for this conversation.
+	Intent string `json:"intent,omitempty"`
+
+	// IntentHandOffTarget is the ID of the hand off target that
+	// is currently associated with the latest intent.
+	IntentHandOffTarget string `json:"intent_handoff_target,omitempty"`
+
+	// HandOffReason is the coded reason why the agent has handed off
+	// the conversation (if at all).
+	HandOffReason string `json:"handoff_reason,omitempty"`
+
+	// HandOffNote is the free-text note that the agent generated
+	// to summarize what it has done so far when handing off the
+	// conversation.
+	HandOffNote string `json:"handoff_note,omitempty"`
 }
