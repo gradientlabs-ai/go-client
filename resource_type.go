@@ -32,6 +32,7 @@ type ResourceType struct {
 	Created time.Time `json:"created"`
 	Updated time.Time `json:"updated"`
 }
+
 type SourceConfig struct {
 	// SourceID identifies the source which should be used to fetch the resource data.
 	SourceID string `json:"source_id"`
