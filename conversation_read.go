@@ -17,7 +17,12 @@ type ReadParams struct {
 }
 
 func (c *Client) ReadConversation(ctx context.Context, conversationID string, p *ReadParams) (*Conversation, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("/conversations/%s/read", conversationID), p)
+	url := fmt.Sprintf("conversations/%s/read", conversationID)
+	if p.SupportPlatform != "" {
+		url = fmt.Sprintf("%s?support_platform=%s", url, p.SupportPlatform)
+	}
+
+	rsp, err := c.makeRequest(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
