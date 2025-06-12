@@ -11,8 +11,17 @@ import (
 type ConversationEventType string
 
 const (
-	// ConversationEventTypeTyping means the customer or human agent started typing.
-	ConversationEventTypeTyping ConversationEventType = "typing"
+	// ConversationEventInternalNote means that a human agent (or bot) has added
+	// a message into the conversation that is not visible to the customer.
+	ConversationEventInternalNote ConversationEventType = "internal-note"
+
+	// ConversationEventTypeJoin means the customer or human agent joined the
+	// conversation.
+	ConversationEventTypeJoin ConversationEventType = "join"
+
+	// ConversationEventTypeLeave means the customer or human agent left the
+	// conversation.
+	ConversationEventTypeLeave ConversationEventType = "leave"
 
 	// ConversationEventTypeMessageDelivered means that a message has been delivered
 	// to a participant
@@ -22,13 +31,8 @@ const (
 	// by the participant it was delivered to
 	ConversationEventTypeMessageRead ConversationEventType = "read"
 
-	// ConversationEventTypeJoin means the customer or human agent joined the
-	// conversation.
-	ConversationEventTypeJoin ConversationEventType = "join"
-
-	// ConversationEventTypeLeave means the customer or human agent left the
-	// conversation.
-	ConversationEventTypeLeave ConversationEventType = "leave"
+	// ConversationEventTypeTyping means the customer or human agent started typing.
+	ConversationEventTypeTyping ConversationEventType = "typing"
 )
 
 type EventParams struct {
