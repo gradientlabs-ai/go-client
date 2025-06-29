@@ -38,6 +38,17 @@ func run(client *glabs.Client) error {
 		CustomerID: "user-1234",
 		Channel:    glabs.ChannelWeb,
 		Metadata:   map[string]string{"chat_entrypoint": "home-page"},
+		Resources: map[string]any{
+			"user_profile": map[string]any{
+				"name":         "Jane Doe",
+				"subscription": "premium",
+			},
+			"transaction": map[string]any{
+				"id":       123,
+				"outbound": true,
+			},
+			"source": "website",
+		},
 	})
 	if err != nil {
 		return err
@@ -62,17 +73,6 @@ func run(client *glabs.Client) error {
 		return err
 	}
 	fmt.Printf("Message: %#v\n", msg)
-
-	err = client.AddResource(ctx, conv.ID, "order-details", struct {
-		ID     string `json:"id"`
-		Status string `json:"status"`
-	}{
-		ID:     "1234",
-		Status: "shipped",
-	})
-	if err != nil {
-		return err
-	}
 
 	err = client.AssignConversation(ctx, conv.ID, &glabs.AssignmentParams{
 		AssigneeType: glabs.ParticipantTypeAIAgent,

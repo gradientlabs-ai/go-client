@@ -40,6 +40,10 @@ type StartConversationParams struct {
 	// Created optionally defines the time when the conversation started.
 	// If not given, this will default to the current time.
 	Created *time.Time `json:"created,omitempty"`
+
+	// Resources is an arbitrary object attached to the conversation and available to the AI agent
+	// during the conversation. You can also use resources as parameters for your tools.
+	Resources map[string]any `json:"resources,omitempty"`
 }
 
 // StartConversation begins a conversation.
