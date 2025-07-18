@@ -1,5 +1,7 @@
 package client
 
+import "time"
+
 // ParameterType determines the data type of a parameter.
 type ParameterType string
 
@@ -30,6 +32,7 @@ type Tool struct {
 	Parameters  []ToolParameter           `json:"parameters"`
 	Webhook     *ToolWebhookConfiguration `json:"webhook,omitempty"`
 	HTTP        *HTTPDefinition           `json:"http,omitempty"`
+	Async       *AsyncDefinition          `json:"async,omitempty"`
 	Mock        bool                      `json:"mock,omitempty"`
 }
 
@@ -61,4 +64,26 @@ type HTTPBodyDefinition struct {
 	Encoding           BodyEncoding      `json:"encoding"`
 	JSONTemplate       string            `json:"json_template,omitempty"`
 	FormFieldTemplates map[string]string `json:"form_field_templates,omitempty"`
+}
+
+type AsyncDefinition struct {
+	// StartExecutionTool is the tool that will be executed to start the async operation. It should return a result
+	// fairly quickly that optionally contains information about the work that has been kicked off. It is executed like
+	// a normal HTTP/Webhook tool.
+	StartExecutionTool ChildTool `json:"start_execution_tool"`
+
+	// Timeout is the maximum time the async operation is allowed to run. If it exceeds this time, we will stop waiting
+	// for the response and the agent will be notified that the async operation has timed out.
+	Timeout time.Duration `json:"timeout"`
+}
+
+// ChildTool represents a tool that is part of a parent tool's configuration. It does not have its own ID, company ID,
+// version, dates, authors, etc. as these are all inherited from the parent tool. In its current form it effectively
+// maps to an action definition.
+//
+// Note that the child tool does not currently support parameters, these are decided by the parent tool and passed to
+// the child tool when it is executed.
+type ChildTool struct {
+	Webhook *ToolWebhookConfiguration `json:"webhook,omitempty"`
+	HTTP    *HTTPDefinition           `json:"http,omitempty"`
 }
