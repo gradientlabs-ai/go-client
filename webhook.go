@@ -121,6 +121,10 @@ type AgentMessageEvent struct {
 
 	// Sequence identifies which agent message this is in the current turn.
 	Sequence int `json:"sequence,omitempty"`
+
+	// Intent is the most recent intent that was classified from the customer's
+	// conversation, if any.
+	Intent string `json:"intent,omitempty"`
 }
 
 // ConversationHandOffEvent contains the data for a `conversation.hand_off` event.
