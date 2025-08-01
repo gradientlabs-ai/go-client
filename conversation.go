@@ -9,9 +9,12 @@ import (
 type Channel string
 
 const (
-	// ChannelWeb indicates the customer is getting in touch via a live instant
-	// message chat.
+	// ChannelWeb is deprecated. It indicates the customer is getting in
+	// touch via a live instant message chat.
 	ChannelWeb Channel = "web"
+
+	// ChannelChat is used for live chat conversations.
+	ChannelChat Channel = "web"
 
 	// ChannelEmail indicates the customer is getting in touch via an email.
 	ChannelEmail Channel = "email"
