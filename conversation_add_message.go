@@ -29,6 +29,11 @@ type Attachment struct {
 
 	// FileName is the name of the file that was uploaded.
 	FileName string `json:"file_name"`
+
+	// URL is the publicly accessible URL where the attachment can be downloaded
+	// from. This should be a fully qualified URL. If not given, the AI agent will
+	// only know that an attachment exists, but will be unable to process it.
+	URL string `json:"url,omitempty"`
 }
 
 // AddMessageParams are the parameters to Client.AddMessage.
