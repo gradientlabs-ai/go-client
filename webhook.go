@@ -142,6 +142,9 @@ type ConversationHandOffEvent struct {
 	// Description is a human-legible description of the Reason code.
 	Description string `json:"reason"`
 
+	// Note is a human-legible summary of the conversation so far, for a smooth hand-off.
+	Note string `json:"note,omitempty"`
+
 	// Intent is the most recent intent that was classified from the customer's
 	// conversation, if any.
 	Intent string `json:"intent,omitempty"`
