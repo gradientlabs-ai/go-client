@@ -82,9 +82,10 @@ func run(client *glabs.Client) error {
 	}
 
 	err = client.AddConversationEvent(ctx, conv.ID, &glabs.EventParams{
-		Type:            glabs.ConversationEventTypeLeave,
+		Type:            glabs.ConversationEventInternalNote,
 		ParticipantID:   "user-1234",
 		ParticipantType: glabs.ParticipantTypeCustomer,
+		Body:            "This customer has bought a toaster from someone else",
 	})
 	if err != nil {
 		return err

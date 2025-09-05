@@ -15,14 +15,6 @@ const (
 	// a message into the conversation that is not visible to the customer.
 	ConversationEventInternalNote ConversationEventType = "internal-note"
 
-	// ConversationEventTypeJoin means the customer or human agent joined the
-	// conversation.
-	ConversationEventTypeJoin ConversationEventType = "join"
-
-	// ConversationEventTypeLeave means the customer or human agent left the
-	// conversation.
-	ConversationEventTypeLeave ConversationEventType = "leave"
-
 	// ConversationEventTypeMessageDelivered means that a message has been delivered
 	// to a participant
 	ConversationEventTypeMessageDelivered ConversationEventType = "delivered"
@@ -54,6 +46,10 @@ type EventParams struct {
 
 	// IdempotencyKey optionally enables you to safely retry requests
 	IdempotencyKey string `json:"idempotency_key,omitempty"`
+
+	// Body contains any text associated with the event (e.g. the contents of
+	// an internal note).
+	Body string `json:"body,omitempty"`
 }
 
 // AddConversationEvent records an event such as the customer started typing.
