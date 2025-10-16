@@ -30,12 +30,33 @@ func main() {
 	}
 }
 
+type token struct {
+	payload        string
+	conversationID string
+	userID         string
+	expiry         time.Time
+}
+
+const tokenPayload = "123456789"
+const customerID = "user-1234"
+const conversationID = "conversation-1234"
+
+// Set-up a mock database of conversation-scoped tokens
+var conversationTokensDatabase = map[string]token{
+	tokenPayload: {
+		payload:        tokenPayload,
+		conversationID: conversationID,
+		userID:         customerID,
+		expiry:         time.Now().Add(1 * time.Hour),
+	},
+}
+
 func run(client *glabs.Client) error {
 	ctx := context.Background()
 
 	conv, err := client.StartConversation(ctx, glabs.StartConversationParams{
-		ID:         "conversation-1234",
-		CustomerID: "user-1234",
+		ID:         conversationID,
+		CustomerID: customerID,
 		Channel:    glabs.ChannelWeb,
 		Metadata:   map[string]string{"chat_entrypoint": "home-page"},
 		Resources: map[string]any{
@@ -49,6 +70,8 @@ func run(client *glabs.Client) error {
 			},
 			"source": "website",
 		},
+		// Include token when starting a conversation
+		ConversationToken: tokenPayload,
 	})
 	if err != nil {
 		return err
@@ -106,7 +129,7 @@ func run(client *glabs.Client) error {
 
 func webhookHandler(client *glabs.Client) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		webhook, err := client.ParseWebhook(r)
+		webhook, token, err := client.ParseWebhook(r)
 		switch {
 		case errors.Is(err, glabs.ErrInvalidWebhookSignature):
 			w.WriteHeader(http.StatusUnauthorized)
@@ -134,5 +157,34 @@ func webhookHandler(client *glabs.Client) http.Handler {
 			log.Printf("hand off: %s", fin.Conversation.ID)
 			return
 		}
+
 	})
+}
+
+func conversationTokenIsValid (token string) error {
+	if token != tokenPayload {
+		// Webhook returned a token we did not expect
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	tokenData, ok := conversationTokensDatabase[token]
+	if !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	switch {
+	case tokenData.userID != customerID:
+		// Token is for a different customer
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	case tokenData.conversationID != conversationID:
+		// Token is for a different conversation
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	case tokenData.expiry.Before(time.Now()):
+		// Token has expired
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 }
