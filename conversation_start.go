@@ -44,6 +44,11 @@ type StartConversationParams struct {
 	// Resources is an arbitrary object attached to the conversation and available to the AI agent
 	// during the conversation. You can also use resources as parameters for your tools.
 	Resources map[string]any `json:"resources,omitempty"`
+
+	// ConversationToken is the raw sensitive token that can be optionally provided when starting a conversation.
+	// The raw token will be included in future Webhook Tool calls related to this conversation,
+	// under the header `X-GradientLabs-Token`.
+	ConversationToken string `json:"conversation_token,omitempty"`
 }
 
 // StartConversation begins a conversation.
