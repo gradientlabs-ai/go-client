@@ -18,6 +18,7 @@ import (
 const (
 	defaultLeeway   = 5 * time.Minute
 	signatureHeader = "X-GradientLabs-Signature"
+	tokenHeader     = "X-GradientLabs-Token"
 )
 
 var (
@@ -200,9 +201,9 @@ type WebhookConversation struct {
 
 // ParseWebhook parses the request, verifies its signature, and returns the
 // webhook data.
-func (c *Client) ParseWebhook(req *http.Request) (*Webhook, error) {
+func (c *Client) ParseWebhook(req *http.Request) (webhook *Webhook, token string, err error) {
 	if err := c.VerifyWebhookRequest(req); err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	var payload struct {
@@ -211,45 +212,48 @@ func (c *Client) ParseWebhook(req *http.Request) (*Webhook, error) {
 		Data json.RawMessage `json:"data"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&payload); err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	switch payload.Type {
 	case WebhookTypeAgentMessage:
 		var am AgentMessageEvent
 		if err := json.Unmarshal(payload.Data, &am); err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		payload.Webhook.Data = &am
 	case WebhookTypeConversationHandOff:
 		var ho ConversationHandOffEvent
 		if err := json.Unmarshal(payload.Data, &ho); err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		payload.Webhook.Data = &ho
 	case WebhookTypeConversationFinished:
 		var fin ConversationFinishedEvent
 		if err := json.Unmarshal(payload.Data, &fin); err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		payload.Webhook.Data = &fin
 	case WebhookTypeActionExecute:
 		var act ActionExecuteEvent
 		if err := json.Unmarshal(payload.Data, &act); err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		payload.Webhook.Data = &act
 	case WebhookTypeResourcePull:
 		var pull ResourcePullEvent
 		if err := json.Unmarshal(payload.Data, &pull); err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		payload.Webhook.Data = &pull
 	default:
-		return nil, fmt.Errorf("unknown webhook event type received: %q", payload.Type)
+		return nil, "", fmt.Errorf("unknown webhook event type received: %q", payload.Type)
 	}
 
-	return &payload.Webhook, nil
+	// Extract the optional sensitive token from the request header.
+	token = req.Header.Get(tokenHeader)
+
+	return &payload.Webhook, token, nil
 }
 
 // VerifyWebhookRequest verifies the authenticity of the given request using
