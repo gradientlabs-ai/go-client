@@ -70,6 +70,7 @@ func run(client *glabs.Client) error {
 			},
 			"source": "website",
 		},
+		// Include token when starting a conversation
 		ConversationToken: tokenPayload,
 	})
 	if err != nil {
@@ -142,28 +143,8 @@ func webhookHandler(client *glabs.Client) http.Handler {
 			return
 		}
 
-		if token != tokenPayload {
-			// Webhook returned a token we did not expect
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		tokenData, ok := conversationTokensDatabase[token]
-		if !ok {
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-
-		switch {
-		case tokenData.userID != customerID:
-			// Token is for a different customer
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		case tokenData.conversationID != conversationID:
-			// Token is for a different conversation
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		case tokenData.expiry.Before(time.Now()):
-			// Token has expired
+		// Validate the conversation-scoped token
+		if !isValidConversationToken(token) {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
@@ -182,5 +163,31 @@ func webhookHandler(client *glabs.Client) http.Handler {
 			log.Printf("hand off: %s", fin.Conversation.ID)
 			return
 		}
+
 	})
+}
+
+func isValidConversationToken(token string) bool {
+	if token != tokenPayload {
+		// Webhook returned a token we did not expect
+		return false
+	}
+	tokenData, ok := conversationTokensDatabase[token]
+	if !ok {
+		return false
+	}
+
+	switch {
+	case tokenData.userID != customerID:
+		// Token is for a different customer
+		return false
+	case tokenData.conversationID != conversationID:
+		// Token is for a different conversation
+		return false
+	case tokenData.expiry.Before(time.Now()):
+		// Token has expired
+		return false
+	}
+
+	return true
 }
