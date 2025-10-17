@@ -143,6 +143,12 @@ func webhookHandler(client *glabs.Client) http.Handler {
 			return
 		}
 
+		// Validate the conversation-scoped token
+		if !isValidConversationToken(token) {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+
 		if am, ok := webhook.AgentMessage(); ok {
 			log.Printf("agent message: %s", am.Body)
 			return
@@ -161,30 +167,27 @@ func webhookHandler(client *glabs.Client) http.Handler {
 	})
 }
 
-func conversationTokenIsValid (token string) error {
+func isValidConversationToken(token string) bool {
 	if token != tokenPayload {
 		// Webhook returned a token we did not expect
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return false
 	}
 	tokenData, ok := conversationTokensDatabase[token]
 	if !ok {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return false
 	}
 
 	switch {
 	case tokenData.userID != customerID:
 		// Token is for a different customer
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return false
 	case tokenData.conversationID != conversationID:
 		// Token is for a different conversation
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return false
 	case tokenData.expiry.Before(time.Now()):
 		// Token has expired
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return false
 	}
+
+	return true
 }

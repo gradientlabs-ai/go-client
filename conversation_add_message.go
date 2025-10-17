@@ -94,6 +94,10 @@ type Message struct {
 
 	// Attachments contains any files that were uploaded with this message.
 	Attachment []*Attachment `json:"attachments,omitempty"`
+
+	// ConversationToken is the raw sensitive token that can be optionally provided in every message.
+	// The latest token of the conversation will be echoed back in future Webhooks, under the header `X-GradientLabs-Token`.
+	ConversationToken string `json:"conversation_token,omitempty"`
 }
 
 // AddMessage records a message sent by the customer or a human agent.

@@ -46,8 +46,7 @@ type StartConversationParams struct {
 	Resources map[string]any `json:"resources,omitempty"`
 
 	// ConversationToken is the raw sensitive token that can be optionally provided when starting a conversation.
-	// The raw token will be included in future Webhook Tool calls related to this conversation,
-	// under the header `X-GradientLabs-Token`.
+	// The latest token of the conversation will be echoed back in future Webhooks, under the header `X-GradientLabs-Token`.
 	ConversationToken string `json:"conversation_token,omitempty"`
 }
 
