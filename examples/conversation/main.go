@@ -106,7 +106,7 @@ func run(client *glabs.Client) error {
 
 func webhookHandler(client *glabs.Client) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		webhook, err := client.ParseWebhook(r)
+		webhook, _, err := client.ParseWebhook(r)
 		switch {
 		case errors.Is(err, glabs.ErrInvalidWebhookSignature):
 			w.WriteHeader(http.StatusUnauthorized)
