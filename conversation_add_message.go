@@ -96,7 +96,8 @@ type Message struct {
 	Attachment []*Attachment `json:"attachments,omitempty"`
 
 	// ConversationToken is the raw sensitive token that can be optionally provided in every message.
-	// The latest token of the conversation will be echoed back in future Webhooks, under the header `X-GradientLabs-Token`.
+	// The latest token of the conversation will be echoed back in future Webhooks, under the header `X-GradientLabs-Token`,
+	// as well as in HTTP Tools using templates. 
 	ConversationToken string `json:"conversation_token,omitempty"`
 }
 
