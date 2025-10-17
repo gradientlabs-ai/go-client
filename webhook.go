@@ -250,7 +250,7 @@ func (c *Client) ParseWebhook(req *http.Request) (webhook *Webhook, token string
 		return nil, "", fmt.Errorf("unknown webhook event type received: %q", payload.Type)
 	}
 
-	// Extract the optional sensitive conversation-scoped token from the request header.
+	// Extract the optional sensitive token from the request header.
 	token = req.Header.Get(tokenHeader)
 
 	return &payload.Webhook, token, nil
