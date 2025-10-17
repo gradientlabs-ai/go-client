@@ -12,6 +12,11 @@ import (
 	glabs "github.com/gradientlabs-ai/go-client"
 )
 
+// This example is similar to ./conversation/main.go, but it makes use of Conversation-Scoped tokens.
+// When a conversation is started, a token is provided in the request.
+// When handling a webhook event, we will expect that token to be echoed back and we will perform
+// further validations on the token.
+
 func main() {
 	client, err := glabs.NewClient(
 		glabs.WithAPIKey(os.Getenv("GLABS_API_KEY")),
