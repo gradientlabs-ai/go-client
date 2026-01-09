@@ -30,7 +30,7 @@ type Attachment struct {
 	// FileName is the name of the file that was uploaded, or an adequate
 	// placeholder for that name, which can be shown to reviewers.
 	//
-	// If you cannot add the actual file name, a placeholder value is acceptable..
+	// If you cannot add the actual file name, a placeholder value is acceptable.
 	FileName string `json:"file_name"`
 
 	// URL is the publicly accessible URL where the attachment can be downloaded
