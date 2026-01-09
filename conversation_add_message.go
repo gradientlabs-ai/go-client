@@ -29,12 +29,21 @@ type Attachment struct {
 
 	// FileName is the name of the file that was uploaded, or an adequate
 	// placeholder for that name, which can be shown to reviewers.
+	//
+	// If you cannot add the actual file name, a placeholder value is acceptable..
 	FileName string `json:"file_name"`
 
 	// URL is the publicly accessible URL where the attachment can be downloaded
 	// from. This should be a fully qualified URL. If not given, the AI agent will
 	// only know that an attachment exists, but will be unable to process it.
 	URL string `json:"url,omitempty"`
+
+	// Summary is an optional short summary of the attachment.  This is only intended
+	// to be used if you cannot give us access to the raw attachment, but can
+	// run your own LLM completions on the attachment and send us a description instead.
+	//
+	// If a summary or description is provided, then there must be no URL.
+	Summary string `json:"summary,omitempty"`
 
 	// Description is an optional description of the attachment. This is only intended
 	// to be used if you cannot give us access to the raw attachment, but can
