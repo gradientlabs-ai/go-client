@@ -23,6 +23,10 @@ type ConversationResumeParams struct {
 	// Reason is an optional explanation for why this conversation is re-opening.
 	// This can be useful for the conversation timeline.
 	Reason string `json:"reason,omitempty"`
+
+	// Resources is an arbitrary object attached to the conversation and available to the AI agent
+	// during the conversation. You can also use resources as parameters for your tools.
+	Resources map[string]any `json:"resources,omitempty"`
 }
 
 // ConversationResume re-opens a conversation that was previously finished.
