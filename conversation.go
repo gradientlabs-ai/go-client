@@ -66,10 +66,6 @@ type Conversation struct {
 	// to determine how the agent formats responses, etc.
 	Channel Channel `json:"channel"`
 
-	// Metadata is arbitrary metadata that will be attached to the conversation.
-	// It will be passed along with webhooks so can be used as action parameters.
-	Metadata any `json:"metadata"`
-
 	// Created is the time at which the conversation was created.
 	Created time.Time `json:"created"`
 

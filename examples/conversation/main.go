@@ -37,7 +37,6 @@ func run(client *glabs.Client) error {
 		ID:         "conversation-1234",
 		CustomerID: "user-1234",
 		Channel:    glabs.ChannelWeb,
-		Metadata:   map[string]string{"chat_entrypoint": "home-page"},
 		Resources: map[string]any{
 			"user_profile": map[string]any{
 				"name":         "Jane Doe",
@@ -61,7 +60,6 @@ func run(client *glabs.Client) error {
 		ParticipantID:   "user-1234",
 		ParticipantType: glabs.ParticipantTypeCustomer,
 		Created:         time.Now(),
-		Metadata:        map[string]string{"device_os": "iOS 17"},
 		Attachments: []*glabs.Attachment{
 			{
 				Type:     glabs.AttachmentTypeImage,

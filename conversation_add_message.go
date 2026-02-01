@@ -76,9 +76,6 @@ type AddMessageParams struct {
 	// Created is the time at which the message was sent.
 	Created time.Time `json:"created"`
 
-	// Metadata is arbitrary metadata that will be attached to the message.
-	Metadata any `json:"metadata"`
-
 	// Attachments contains any files that were uploaded with this message.
 	Attachments []*Attachment `json:"attachments,omitempty"`
 }
@@ -105,9 +102,6 @@ type Message struct {
 
 	// Created is the time at which the message was sent.
 	Created *time.Time `json:"created"`
-
-	// Metadata is arbitrary metadata attached to the message.
-	Metadata any `json:"metadata"`
 
 	// Attachments contains any files that were uploaded with this message.
 	Attachment []*Attachment `json:"attachments,omitempty"`
