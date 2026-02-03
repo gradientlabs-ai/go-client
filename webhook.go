@@ -194,9 +194,6 @@ type WebhookConversation struct {
 
 	// CustomerID is your chosen identifier for the customer.
 	CustomerID string `json:"customer_id"`
-
-	// Metadata you attached to the conversation with Client.StartConversation.
-	Metadata any `json:"metadata"`
 }
 
 // ParseWebhook parses the request, verifies its signature, and returns the
