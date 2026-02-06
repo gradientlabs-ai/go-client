@@ -26,8 +26,13 @@ type ExecutionParams struct {
 type ExecuteResult struct {
 	ID string `json:"id"`
 
-	// Result is the JSON-encoded result of the tool execution.
-	RawResult json.RawMessage `json:"raw"`
+	// Result is the JSON-encoded result of the tool execution,
+	// if it succeeded.
+	Result json.RawMessage `json:"result,omitempty"`
+
+	// Error is the error that occurred during the tool execution,
+	// if it failed.
+	Error string `json:"error,omitempty"`
 }
 
 // ExecuteTool executes a tool with the provided arguments, so that you can
