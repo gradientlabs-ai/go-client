@@ -8,7 +8,7 @@ import (
 
 // SetNoteStatusParams contains the parameters for setting a note's status.
 type SetNoteStatusParams struct {
-	// Status describes whether the note is draft, live, or deleted.
+	// Status describes whether the note is draft or live.
 	Status NoteStatus `json:"status"`
 }
 

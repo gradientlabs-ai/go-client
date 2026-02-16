@@ -9,9 +9,6 @@ import (
 
 // CreateNoteParams contains the parameters for creating a note.
 type CreateNoteParams struct {
-	// AuthorID optionally identifies the (current) author of the note.
-	AuthorID string `json:"author_id,omitempty"`
-
 	// ID is your identifier for this note.
 	ID string `json:"id"`
 
@@ -23,7 +20,7 @@ type CreateNoteParams struct {
 
 	// WebpageURL optionally points to a webpage to use as the note body.
 	// This is mutually exclusive with Body.
-	WebpageURL string `json:"webpage_url,omitempty"`
+	WebpageURL *string `json:"webpage_url,omitempty"`
 
 	// StartTime is when the note becomes relevant.
 	StartTime *time.Time `json:"start_time,omitempty"`

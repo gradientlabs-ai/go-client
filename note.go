@@ -12,7 +12,8 @@ const (
 	// NoteStatusLive means the note is published and available.
 	NoteStatusLive NoteStatus = "live"
 
-	// NoteStatusDeleted means the note has been deleted.
+	// NoteStatusDeleted means the note has been deleted. Use the DeleteNote() method
+	// to delete a note.
 	NoteStatusDeleted NoteStatus = "deleted"
 )
 
