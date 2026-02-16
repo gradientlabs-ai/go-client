@@ -10,9 +10,6 @@ import (
 
 // UpdateNoteParams contains the parameters for updating a note.
 type UpdateNoteParams struct {
-	// AuthorID optionally identifies the (current) author of the note.
-	AuthorID string `json:"author_id,omitempty"`
-
 	// Title is the note's title.
 	Title string `json:"title"`
 
