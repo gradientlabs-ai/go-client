@@ -126,6 +126,11 @@ type AgentMessageEvent struct {
 	// Intent is the most recent intent that was classified from the customer's
 	// conversation, if any.
 	Intent string `json:"intent,omitempty"`
+
+	// IsHolding identifies whether the agent message is a holding-response or not.
+	// Holding-responses are sent to let the customer know that the agent is working on a full response.
+	// For example: "I'm sorry to hear you want to close your account. Let me take a look at the next steps for you..."
+	IsHolding bool `json:"is_holding,omitempty"`
 }
 
 // ConversationHandOffEvent contains the data for a `conversation.hand_off` event.
