@@ -45,6 +45,10 @@ type StartConversationParams struct {
 	// The latest token of the conversation will be echoed back in future Webhooks, under the header `X-GradientLabs-Token`,
 	// as well as in HTTP Tools using templates.
 	ConversationToken string `json:"conversation_token,omitempty"`
+
+	// TrafficGroupID optionally restricts the conversation to only access procedures
+	// assigned to the specified traffic group, plus any procedures not assigned to any group.
+	TrafficGroupID string `json:"traffic_group_id,omitempty"`
 }
 
 // StartConversation begins a conversation.
