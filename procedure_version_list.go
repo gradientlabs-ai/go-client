@@ -8,8 +8,9 @@ import (
 	"time"
 )
 
-type ExperimentalConfig struct {
-	MaxDailyConversations int
+// GatedConfig holds configuration for a gated procedure version.
+type GatedConfig struct {
+	MaxDailyConversations int `json:"max_daily_conversations"`
 }
 
 type ProcedureVersion struct {
@@ -17,20 +18,20 @@ type ProcedureVersion struct {
 	Name string
 	// Description of the procedure at the time of this version.
 	Description string
-	// Version is a numeric identifier for the version. It is incremented every
+	// Version is a numeric identifier for the version. Version is incremented every
 	// time a new version of the procedure is saved.
 	Version int
 	// Author is the ID of the user who created this version of the procedure.
 	Author string
 	// Created is the time at which this version of the procedure was created.
 	Created time.Time
-	// Experimental indicates whether this is an experimental version that is used before "live",
-	// within the daily limit defined in ExperimentalConfig.
-	Experimental bool
-	// ExperimentalConfig defines how the experimental version is limited. Relevant only if Experimental == true.
-	ExperimentalConfig *ExperimentalConfig
-	// Live indicates whether this is the "production" version that is used by the agent by default,
-	// if there are no experimental versions or all of them have exceeded their limit.
+	// Gated indicates whether the procedure version is a gated version that is used before "live",
+	// within the daily limit defined in GatedConfig.
+	Gated bool `json:"gated"`
+	// GatedConfig defines how the gated version is limited. GatedConfig is relevant only when Gated == true.
+	GatedConfig *GatedConfig `json:"gated_config"`
+	// Live indicates whether the procedure version is the "production" version used by the agent by default,
+	// when there are no gated versions or all gated versions have exceeded their daily limit.
 	Live bool
 }
 

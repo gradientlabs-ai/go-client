@@ -39,13 +39,13 @@ func run(client *glabs.Client) error {
 
 	fmt.Printf("Listed %v procedure versions\n", len(rsp.Versions))
 	for _, proc := range rsp.Versions {
-		fmt.Printf("Version: %v; Live: %t, Experiment: %t\n", proc.Version, proc.Live, proc.Experimental)
+		fmt.Printf("Version: %v; Live: %t, Gated: %t\n", proc.Version, proc.Live, proc.Gated)
 	}
 
 	ver := rsp.Versions[0]
 
-	fmt.Println("Set experiment version")
-	err = client.SetProcedureExperimentVersion(ctx, procedureID, ver.Version, &glabs.SetProcedureExperimentVersionParams{
+	fmt.Println("Set gated version")
+	err = client.SetProcedureGatedVersion(ctx, procedureID, ver.Version, &glabs.SetProcedureGatedVersionParams{
 		MaxDailyConversations: 10,
 		Replace:               true,
 	})
@@ -53,8 +53,8 @@ func run(client *glabs.Client) error {
 		return err
 	}
 
-	fmt.Println("Unset experiment version")
-	err = client.UnsetProcedureExperimentVersion(ctx, procedureID, ver.Version)
+	fmt.Println("Unset gated version")
+	err = client.UnsetProcedureGatedVersion(ctx, procedureID, ver.Version)
 	if err != nil {
 		return err
 	}
