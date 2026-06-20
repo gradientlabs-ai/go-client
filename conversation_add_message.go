@@ -66,6 +66,9 @@ type AddMessageParams struct {
 	// Body contains the message text.
 	Body string `json:"body"`
 
+	// Subject is the email subject line. Only applicable for email-channel conversations.
+	Subject string `json:"subject,omitempty"`
+
 	// ParticipantID identifies the message sender.
 	ParticipantID string `json:"participant_id"`
 
@@ -93,6 +96,9 @@ type Message struct {
 
 	// Body contains the message text.
 	Body string `json:"body"`
+
+	// Subject is the email subject line. Only applicable for email-channel conversations.
+	Subject string `json:"subject,omitempty"`
 
 	// ParticipantID identifies the message sender.
 	ParticipantID string `json:"participant_id"`
