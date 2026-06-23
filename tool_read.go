@@ -7,11 +7,26 @@ import (
 	"net/http"
 )
 
-// ReadTool retrieves a new tool.
+// ReadToolParams are the optional parameters to Client.ReadTool.
+type ReadToolParams struct {
+	// Version optionally specifies which tool revision to retrieve.
+	// If zero, the latest version is returned.
+	Version int
+}
+
+// ReadTool retrieves a tool.
+//
+// Pass a non-nil p to supply optional parameters such as a specific version.
+// Pass nil (or a zero-value ReadToolParams) to retrieve the latest version.
 //
 // Note: requires a `Management` API key.
-func (c *Client) ReadTool(ctx context.Context, toolID string) (*Tool, error) {
-	rsp, err := c.makeRequest(ctx, http.MethodGet, fmt.Sprintf("tools/%s", toolID), nil)
+func (c *Client) ReadTool(ctx context.Context, toolID string, p *ReadToolParams) (*Tool, error) {
+	path := fmt.Sprintf("tools/%s", toolID)
+	if p != nil && p.Version > 0 {
+		path = fmt.Sprintf("%s?version=%d", path, p.Version)
+	}
+
+	rsp, err := c.makeRequest(ctx, http.MethodGet, path, nil)
 	if err != nil {
 		return nil, err
 	}
