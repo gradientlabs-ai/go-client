@@ -32,7 +32,7 @@ type RatingParams struct {
 }
 
 // RateConversation submits a customer (CSAT) rating for a conversation.
-func (c *Client) RateConversation(ctx context.Context, conversationID string, p *AssignmentParams) error {
+func (c *Client) RateConversation(ctx context.Context, conversationID string, p *RatingParams) error {
 	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/rate", conversationID), p)
 	if err != nil {
 		return err
