@@ -18,6 +18,9 @@ const (
 
 	// ChannelEmail indicates the customer is getting in touch via an email.
 	ChannelEmail Channel = "email"
+
+	// ChannelVoice indicates the customer is getting in touch via a voice call.
+	ChannelVoice Channel = "voice"
 )
 
 // Status describes the current state of the conversation.
