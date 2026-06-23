@@ -5,6 +5,8 @@ type TrafficGroup struct {
 	ID      string               `json:"id"`
 	Name    string               `json:"name"`
 	Targets []TrafficGroupTarget `json:"targets"`
+	// ExcludedTargets lists the procedures explicitly excluded from this traffic group.
+	ExcludedTargets []TrafficGroupTarget `json:"excluded_targets"`
 }
 
 // TrafficGroupTarget represents a target within a traffic group.
