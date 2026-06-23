@@ -24,6 +24,9 @@ import (
 //
 // Names should be descriptive handles that are the same for all conversations
 // (e.g. "order-details" and "user-profile") not unique identifiers.
+//
+// Deprecated: this endpoint has been removed from the backend. Pass resources
+// via StartConversationParams.Resources or ConversationResumeParams.Resources instead.
 func (c *Client) AddResource(ctx context.Context, conversationID string, name string, resource any) error {
 	rsp, err := c.makeRequest(ctx, http.MethodPut, fmt.Sprintf("conversations/%s/resources/%s", conversationID, name), resource)
 	if err != nil {
