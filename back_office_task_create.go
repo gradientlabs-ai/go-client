@@ -12,8 +12,11 @@ type BackOfficeTaskCreateParams struct {
 	// ID is the external identifier for this task.
 	ID string `json:"id"`
 
-	// AgentID identifies the back-office task type to execute.
+	// AgentID is the agent (agent group) that runs this task.
 	AgentID string `json:"agent_id,omitempty"`
+
+	// ProcedureID is the procedure within the agent to start the task from.
+	ProcedureID string `json:"procedure_id"`
 
 	// Input is the structured input data for the task.
 	Input json.RawMessage `json:"input"`
