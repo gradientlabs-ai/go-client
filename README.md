@@ -1,5 +1,5 @@
 # Gradient Labs Go
-[![Go Reference](https://pkg.go.dev/badge/github.com/gradientlabs-ai/go-client.svg)](https://pkg.go.dev/github.com/gradientlabs-ai/go-client)
+[![Go Reference](https://pkg.go.dev/badge/github.com/gradientlabs-ai/gradientlabs-go.svg)](https://pkg.go.dev/github.com/gradientlabs-ai/gradientlabs-go)
 
 Go bindings for the [Gradient Labs API](https://api-docs.gradient-labs.ai).
 
@@ -10,13 +10,13 @@ Go bindings for the [Gradient Labs API](https://api-docs.gradient-labs.ai).
 ## Installation
 
 ```bash
-go get github.com/gradientlabs-ai/go-client
+go get github.com/gradientlabs-ai/gradientlabs-go
 ```
 
 ## Documentation
 
 - [API Documentation](https://api-docs.gradient-labs.ai)
-- [Go Package Reference](https://pkg.go.dev/github.com/gradientlabs-ai/go-client)
+- [Go Package Reference](https://pkg.go.dev/github.com/gradientlabs-ai/gradientlabs-go)
 
 ## Example Usage
 
@@ -32,7 +32,7 @@ import (
     "os"
     "time"
 
-    glabs "github.com/gradientlabs-ai/go-client"
+    glabs "github.com/gradientlabs-ai/gradientlabs-go"
 )
 
 func main() {

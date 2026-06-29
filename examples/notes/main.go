@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	glabs "github.com/gradientlabs-ai/go-client"
+	glabs "github.com/gradientlabs-ai/gradientlabs-go"
 )
 
 func main() {
