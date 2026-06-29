@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	glabs "github.com/gradientlabs-ai/go-client"
+	glabs "github.com/gradientlabs-ai/gradientlabs-go"
 )
 
 // This example is similar to ./conversation/main.go, but it makes use of Conversation-Scoped tokens.
